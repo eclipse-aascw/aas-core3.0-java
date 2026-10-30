@@ -21,7 +21,7 @@
 <dependency>
     <groupId>io.github.aas-core-works</groupId>
     <artifactId>aas-core3.0-java</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 }
 </pre>
@@ -672,6 +672,10 @@ System.out.println(maybeEnhancement.isPresent());
 
 <div id="changelog">
     <h1>Change Log</h1>
+
+    <h2>1.0.2</h2>
+
+    Unescaped special characters in the file path verification regex caused verification of file / thumbnail elements to fail in some cases. We adjust the regex accordingly.
 
     <h2>1.0.1</h2>
 
