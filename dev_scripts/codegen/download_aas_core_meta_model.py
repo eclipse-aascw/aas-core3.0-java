@@ -105,9 +105,11 @@ def main() -> int:
     out_path = this_dir / "meta_model.py"
     # Overwrite unconditionally.
     # Do not duplicate the license header if the upstream file already has one.
+    # REUSE-IgnoreStart
     license_header = (
         "" if "SPDX-License-Identifier:" in content else _META_MODEL_LICENSE_HEADER
     )
+    # REUSE-IgnoreEnd
     out_path.write_text(
         f"{license_header}{banner}{content.rstrip()}\n\n{banner}",
         encoding="utf-8",
