@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 aas-core3.0-java AUTHORS
+//
+// SPDX-License-Identifier: MIT
+
 package aas_core.aas3_0.generation;
 
 import aas_core.aas3_0.types.enums.*;

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 aas-core3.0-java AUTHORS
+//
+// SPDX-License-Identifier: MIT
+
 import aas_core.aas3_0.enhancing.Enhancer;
 import aas_core.aas3_0.jsonization.Jsonization;
 import aas_core.aas3_0.reporting.Reporting;

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 aas-core3.0-java AUTHORS
+#
+# SPDX-License-Identifier: MIT
+
 """
 Update everything in this project to the latest aas-core-meta and -codegen.
 
@@ -140,6 +144,33 @@ def _regenerate_code(
     return None
 
 
+# NOTE (aaronzi, 2026-11-05):
+# codegen.py prepends the license header to the generated files. The semantic
+# patching re-prints Verification.java with JavaParser, which keeps the header,
+# but drops the empty line after it. We restore the header after patching so that
+# Verification.java starts the same way as the other generated files.
+#
+# REUSE-IgnoreStart
+_LICENSE_HEADER = """\
+// SPDX-FileCopyrightText: 2023 aas-core3.0-java AUTHORS
+//
+// SPDX-License-Identifier: MIT
+
+"""
+# REUSE-IgnoreEnd
+
+_LEADING_SPDX_COMMENTS_RE = re.compile(r"\A(?://\s*(?:SPDX-[A-Za-z-]+:.*)?\n|\n)*")
+
+
+def _restore_license_header(path: pathlib.Path) -> None:
+    """Replace any leading SPDX comment block in ``path`` with our license header."""
+    text = path.read_text(encoding="utf-8")
+    path.write_text(
+        _LICENSE_HEADER + _LEADING_SPDX_COMMENTS_RE.sub("", text, count=1),
+        encoding="utf-8",
+    )
+
+
 def _semantically_patch(our_repo: pathlib.Path) -> Optional[int]:
     """Run the scripts to semantically patch the generated code."""
     cwd = our_repo / "dev_scripts" / "semantic-patching"
@@ -166,6 +197,8 @@ def _semantically_patch(our_repo: pathlib.Path) -> Optional[int]:
     )
     if exit_code is not None:
         return exit_code
+
+    _restore_license_header(verification_java)
 
     return None
 
